@@ -29,5 +29,12 @@
   "env": {
     "VITE_SUPABASE_URL": "https://dfczkhfdkszibjfsxoko.supabase.co",
     "VITE_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRmY3praGZka3N6aWJqZnN4b2tvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU2MTQ3MDAsImV4cCI6MjA3MTE5MDcwMH0.gIL6fD6ncZ6t5TQIF6khjz8cbGhWOWHet6vH6fJqNT8"
-  }
+  },
+
+  "rewrites": [
+    {
+      "source": "/((?!api|assets|_next|favicon.ico).*)",
+      "destination": "/index.html"
+    }
+  ]
 }
