@@ -1,4 +1,3 @@
-
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import path from 'path';
@@ -58,9 +57,30 @@ export default defineConfig({
   build: {
     target: 'esnext',
     outDir: 'dist',
+    assetsDir: 'assets',
+    rollupOptions: {
+      output: {
+        assetFileNames: (assetInfo) => {
+          // assetInfo.name이 undefined일 수 있으므로 안전하게 처리
+          const name = assetInfo.name || 'asset';
+          const extType = name.split('.').pop() || '';
+          
+          if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(extType)) {
+            return `assets/img/[name]-[hash][extname]`;
+          }
+          if (/css/i.test(extType)) {
+            return `assets/css/[name]-[hash][extname]`;
+          }
+          return `assets/${extType || 'misc'}/[name]-[hash][extname]`;
+        },
+        chunkFileNames: 'assets/js/[name]-[hash].js',
+        entryFileNames: 'assets/js/[name]-[hash].js',
+      }
+    }
   },
   server: {
     port: 3000,
     open: true,
   },
+  base: '/', // 절대 경로로 변경 (Vercel 배포용)
 });
